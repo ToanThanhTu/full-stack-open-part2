@@ -1,8 +1,22 @@
-# React + Vite
+# Phonebook App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple Phonebook App that allows you to store and manage contact information.
 
-Currently, two official plugins are available:
+## Usage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Install dependencies:
+    - `npm install`
+    - `npm install axios`
+    - `npm install -g json-server`
+1. Run the JSON server:
+    - Open a separate terminal or command line.
+    - Run `npm run server` to start the JSON server. This will serve as the backend API for the app.
+1. Run the app:
+    - In a new terminal or command line, run `npm run dev` to start the app.
+    - The app will be accessible at `http://localhost:5173`.
+1. Access the JSON API:
+    - The JSON API can be accessed at `http://localhost:3001/persons`. This is where the contact information is stored.
+
+## Author
+
+This Phonebook App was created by Thanh Toan Tu.
