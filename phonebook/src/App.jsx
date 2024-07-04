@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import personsService from './services/persons'
 
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -12,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     personsService.getAll()
@@ -47,6 +48,14 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
+        // Set a timeout to clear the message after 5 seconds
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+        setMessage({
+          text: `Added ${returnedPerson.name}`,
+          type: 'success'
+        })
       })
   }
 
@@ -62,6 +71,24 @@ const App = () => {
         setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
         setNewName('')
         setNewNumber('')
+        // Set a timeout to clear the message after 5 seconds
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+        setMessage({
+          text: `Changed ${returnedPerson.name}'s number`,
+          type: 'success'
+        })
+      })
+      .catch(error => {
+        // Set a timeout to clear the message after 5 seconds
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+        setMessage({
+          text: `Information of ${newName} has already been removed from the server`,
+          type: 'error'
+        })
       })
   }
 
@@ -81,6 +108,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter filter={filter} handleFilterChange={e => setFilter(e.target.value)} />
       <h3>Add a new</h3>
       <PersonForm
